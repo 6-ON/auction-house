@@ -1,0 +1,80 @@
+// -------------------- Config ------------------
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mongodb"
+  url      = env("DATABASE_URL")
+}
+
+// ------------------------ Models-------------------
+model Auction {
+  id           String          @id @default(auto()) @map("_id") @db.ObjectId
+  title        String
+  description  String
+  initialPrice Float
+  tags         String[]
+  user         User            @relation(fields: [userId], references: [id])
+  userId       String          @db.ObjectId
+  bids         Bid[]
+  Category     Category        @relation(fields: [categoryId], references: [id])
+  categoryId   String          @db.ObjectId
+  objects      AuctionObject[]
+}
+
+model AuctionObject {
+  id          String        @id @default(auto()) @map("_id") @db.ObjectId
+  name        String
+  description String
+  auction     Auction       @relation(fields: [auctionId], references: [id])
+  auctionId   String        @db.ObjectId
+  images      ObjectImage[]
+}
+
+model Bid {
+  id        String  @id @default(auto()) @map("_id") @db.ObjectId
+  user      User    @relation(fields: [userId], references: [id])
+  action    Auction @relation(fields: [auctionId], references: [id])
+  userId    String  @db.ObjectId
+  auctionId String  @db.ObjectId
+}
+
+model Category {
+  id       String    @id @default(auto()) @map("_id") @db.ObjectId
+  name     String
+  auctions Auction[]
+}
+
+model Message {
+  id       String @id @default(auto()) @map("_id") @db.ObjectId
+  sender   User   @relation(fields: [senderId], references: [id])
+  senderId String @map("senderId") @db.ObjectId
+  content  String
+}
+
+model Report {
+  id         String @id @default(auto()) @map("_id") @db.ObjectId
+  reporter   User   @relation(fields: [reporterId], references: [id])
+  reporterId String @map("userId") @db.ObjectId
+  reason     String
+}
+
+model ObjectImage {
+  id              String        @id @default(auto()) @map("_id") @db.ObjectId
+  url             String
+  auctionObject   AuctionObject @relation(fields: [auctionObjectId], references: [id])
+  auctionObjectId String        @db.ObjectId
+}
+
+model User {
+  id       String    @id @default(auto()) @map("_id") @db.ObjectId
+  email    String    @unique
+  username String
+  fullName String
+  password String
+  auctions Auction[]
+  bids     Bid[]
+  reports  Report[]
+  messages Message[]
+}
