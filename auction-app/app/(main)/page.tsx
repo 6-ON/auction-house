@@ -1,6 +1,6 @@
 import { FeaturedAuctions, Footer, HeroSection, UpcomingAuctions } from '../../components/partial'
 
-export default function Home() {
+export default async function Home() {
 	return (
 		<main className="flex-1">
 			<HeroSection />

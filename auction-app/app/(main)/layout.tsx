@@ -2,6 +2,8 @@ import type { Metadata } from 'next'
 import { Inter as FontSans } from 'next/font/google'
 import { cn } from '@/lib/utils'
 import { Nav } from '@/components/partial'
+import { SessionProvider } from 'next-auth/react'
+import { auth } from '@/lib/auth'
 export const fontSans = FontSans({
 	subsets: ['latin'],
 	variable: '--font-sans',
@@ -11,10 +13,14 @@ export const metadata: Metadata = {
 	description: 'a live auction platform for buying and selling goods.',
 }
 
-export default function MainLayout({ children }: { children: React.ReactNode }) {
+export default async function MainLayout({ children }: { children: React.ReactNode }) {
+	const session = await auth()
+
 	return (
 		<>
-			<Nav /> {children}
+			<SessionProvider session={session}>
+				<Nav /> {children}
+			</SessionProvider>
 		</>
 	)
 }
