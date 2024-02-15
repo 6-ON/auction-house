@@ -22,8 +22,8 @@ export function AccountDropdown() {
 				<DropdownMenuLabel>My Account</DropdownMenuLabel>
 				<DropdownMenuSeparator />
 				<DropdownMenuItem>
-					<Link href="/profile" className="w-full">
-						<span>Profile</span>
+					<Link href="/settings" className="w-full">
+						<span>Settings</span>
 					</Link>
 				</DropdownMenuItem>
 				<DropdownMenuSeparator />
