@@ -18,6 +18,8 @@ model Auction {
   user         User            @relation(fields: [userId], references: [id])
   userId       String          @db.ObjectId
   bids         Bid[]
+  startDate    DateTime
+  endDate      DateTime
   Category     Category        @relation(fields: [categoryId], references: [id])
   categoryId   String          @db.ObjectId
   objects      AuctionObject[]
@@ -25,11 +27,11 @@ model Auction {
 
 model AuctionObject {
   id          String        @id @default(auto()) @map("_id") @db.ObjectId
-  name        String
+  title        String
   description String
   auction     Auction       @relation(fields: [auctionId], references: [id])
   auctionId   String        @db.ObjectId
-  images      ObjectImage[]
+  image      String
 }
 
 model Bid {
@@ -60,12 +62,12 @@ model Report {
   reason     String
 }
 
-model ObjectImage {
-  id              String        @id @default(auto()) @map("_id") @db.ObjectId
-  url             String
-  auctionObject   AuctionObject @relation(fields: [auctionObjectId], references: [id])
-  auctionObjectId String        @db.ObjectId
-}
+// model ObjectImage {
+//   id              String        @id @default(auto()) @map("_id") @db.ObjectId
+//   url             String
+//   auctionObject   AuctionObject @relation(fields: [auctionObjectId], references: [id])
+//   auctionObjectId String        @db.ObjectId
+// }
 
 model User {
   id       String    @id @default(auto()) @map("_id") @db.ObjectId
