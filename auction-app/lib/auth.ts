@@ -9,6 +9,23 @@ export const {
 	handlers: { GET, POST },
 } = NextAuth({
 	...authConfig,
+	callbacks: {
+		session: async ({ session, token }) => {
+			if (session?.user) {
+				session.user.id = token.sub!
+			}
+			return session
+		},
+		jwt: async ({ user, token }) => {
+			if (user) {
+				token.sub = user.id
+			}
+			return token
+		},
+	},
+	session: {
+		strategy: 'jwt',
+	},
 	providers: [
 		CredentialsProvider({
 			credentials: {
@@ -20,7 +37,6 @@ export const {
 				const { data, error } = await loginUser({ email, password })
 				if (error) return null
 				console.log('-----------------------logged in---------------------------')
-
 				return data!
 			},
 		}),
