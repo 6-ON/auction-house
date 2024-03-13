@@ -15,13 +15,11 @@ export const metadata: Metadata = {
 
 export default async function MainLayout({ children }: { children: React.ReactNode }) {
 	const session = await auth()
-	
+
 	return (
 		<>
-			<SessionProvider session={session}>
-				<Nav session={session} />
-				{children}
-			</SessionProvider>
+			<Nav session={session} />
+			{children}
 		</>
 	)
 }
