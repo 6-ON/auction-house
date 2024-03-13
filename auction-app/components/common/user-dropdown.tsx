@@ -1,5 +1,5 @@
 'use client'
-import { LogOut, User } from 'lucide-react'
+import { LogOut, PlusCircle, Settings, User } from 'lucide-react'
 import { Button } from '../ui/button'
 import {
 	DropdownMenu,
@@ -19,10 +19,17 @@ export function AccountDropdown() {
 				<User className="w-7 h-7" />
 			</DropdownMenuTrigger>
 			<DropdownMenuContent className="me-4">
-				<DropdownMenuLabel>My Account</DropdownMenuLabel>
+				<DropdownMenuLabel>Hello User !</DropdownMenuLabel>
 				<DropdownMenuSeparator />
+				<DropdownMenuItem >
+					<Link href="/auctions/new" className="w-full flex gap-2 pe-12">
+						<PlusCircle className="w-5 h-5" />
+						<span>Create Auction</span>
+					</Link>
+				</DropdownMenuItem>
 				<DropdownMenuItem>
-					<Link href="/settings" className="w-full">
+					<Link href="/settings" className="w-full flex gap-2">
+						<Settings className="w-5 h-5" />
 						<span>Settings</span>
 					</Link>
 				</DropdownMenuItem>

@@ -1,3 +1,4 @@
-export * from './AuctionCard'
 export * from './Logo'
-export * from './MiniAuctionCard'
+export * from './mini-auction-card'
+export * from './auction-card'
+export * from './search-auctions'
