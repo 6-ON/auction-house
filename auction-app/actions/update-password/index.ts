@@ -21,7 +21,7 @@ const handler = async (data: InputType): Promise<ReturnType> => {
 			where: { id: user.id },
 			data: { password: hashedPw },
 		})
-		return { success: true }
+		return { success: true, data: undefined }
 	} catch (e) {
 		return { error: 'error updating password' }
 	}
