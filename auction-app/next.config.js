@@ -1,8 +1,19 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
-    images:{
-        domains: ['localhost']
-    }
+	images: {
+		remotePatterns: [
+			{
+				hostname: 'localhost',
+			},
+			{
+				hostname: 'loremflickr.com',
+			},
+            {
+                hostname: 'picsum.photos',
+            }
+		],
+	},
+	reactStrictMode: false,
 }
 
 module.exports = nextConfig
