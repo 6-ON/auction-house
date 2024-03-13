@@ -17,7 +17,7 @@ const handler = async (data: InputType): Promise<ReturnType> => {
 			},
 		})
 		revalidatePath('/settings')
-		return { success: true }
+		return { success: true, data: undefined }
 	} catch (e) {
 		return { error: 'error updating profile' }
 	}

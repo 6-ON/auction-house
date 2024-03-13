@@ -4,4 +4,4 @@ import { ActionState } from '@/lib/create-safe-action'
 
 export type InputType = z.infer<typeof UpdateProfileSchema>
 
-export type ReturnType =  ActionState<InputType, never >;
+export type ReturnType = ActionState<InputType, undefined>
