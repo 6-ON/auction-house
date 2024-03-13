@@ -25,14 +25,12 @@ const ImageFileDrop: React.FC<ImageFileDrop> = ({ field, fieldState, formState }
 
 	const handleFileDrop: React.DragEventHandler<HTMLLabelElement> = (e) => {
 		e.preventDefault() // also used to prevent image from opening in the browser
-		console.log('onDrop', e.dataTransfer.files)
 		uploadFile(e.dataTransfer.files[0]).then((url: string) => {
 			field.onChange(url)
 		})
 	}
 
 	const handleFileChange: React.ChangeEventHandler<HTMLInputElement> = (e) => {
-		console.log('file input changed', e.target.files)
 		const file = e.target.files?.[0]
 		if (file)
 			uploadFile(file).then((url: string) => {
