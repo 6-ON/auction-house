@@ -1,6 +1,6 @@
 'use client'
 import { cn } from '@/lib/utils'
-import { icons as Icons } from 'lucide-react'
+import * as Icons from 'lucide-react'
 import { Button } from '@/components/ui/button'
 import { SubmitHandler, useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
@@ -33,13 +33,13 @@ export function SignUpForm({ className, ...props }: SignUpFormProps) {
 		formState: { isSubmitting },
 	} = form
 	const onSubmit: SubmitHandler<SignUpSchema> = async (formData) => {
-		const { error, success, fieldErrors } = await createUser(formData)
-		if (fieldErrors)
-			Object.entries(fieldErrors).forEach(([field, errors]) => {
-				setError(field as keyof SignUpSchema, { message: errors.join(', ') })
-			})
-		if (success) router.push('/sign-in')
-		if (error) console.error(error)
+		const rlst = await createUser(formData)
+		if (rlst.success) return router.push('/sign-in')
+		const { error, fieldErrors } = rlst
+		Object.entries(fieldErrors || {}).forEach(([field, errors]) => {
+			setError(field as keyof SignUpSchema, { message: errors.join(', ') })
+		})
+		console.error(error)
 	}
 
 	return (
