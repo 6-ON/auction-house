@@ -14,7 +14,7 @@ const handler = async ({ email, password }: SignInSchema): Promise<ReturnType> =
 	if (!user) return { error: 'Credentials wrong' }
 	const { password: hashedPw, ...data } = user
 	if (!(await verify(hashedPw, password))) return { error: 'Credentials wrong' }
-	return { data }
+	return { data, success: true }
 }
 
 export const loginUser = createSafeAction(signInSchema, handler)
