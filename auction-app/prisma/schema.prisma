@@ -20,9 +20,10 @@ model Auction {
   bids         Bid[]
   startDate    DateTime
   endDate      DateTime
-  Category     Category        @relation(fields: [categoryId], references: [id])
+  category     Category        @relation(fields: [categoryId], references: [id])
   categoryId   String          @db.ObjectId
   objects      AuctionObject[]
+  messages     Message[]
 }
 
 model AuctionObject {
@@ -36,10 +37,12 @@ model AuctionObject {
 
 model Bid {
   id        String  @id @default(auto()) @map("_id") @db.ObjectId
+  amount    Float
   user      User    @relation(fields: [userId], references: [id])
   action    Auction @relation(fields: [auctionId], references: [id])
   userId    String  @db.ObjectId
   auctionId String  @db.ObjectId
+  createdAt DateTime @default(now())
 }
 
 model Category {
@@ -53,6 +56,9 @@ model Message {
   sender   User   @relation(fields: [senderId], references: [id])
   senderId String @map("senderId") @db.ObjectId
   content  String
+  auction  Auction @relation(fields: [auctionId], references: [id])
+  auctionId String @db.ObjectId
+  createdAt DateTime @default(now())
 }
 
 model Report {
