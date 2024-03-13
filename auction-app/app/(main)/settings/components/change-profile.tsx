@@ -11,7 +11,7 @@ import { useForm } from 'react-hook-form'
 import { updateProfile } from '@/actions/update-profile'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { UpdateProfileSchema } from '@/actions/update-profile/schema'
-import { icons } from 'lucide-react'
+import * as icons  from 'lucide-react'
 import { useToast } from '@/components/ui/use-toast'
 type FormProps = {
 	profile: Profile
