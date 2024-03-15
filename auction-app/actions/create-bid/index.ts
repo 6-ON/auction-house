@@ -3,12 +3,14 @@ import { InputType, OutputType } from './types'
 import { createSafeAction } from '@/lib/create-safe-action'
 import { bidSchema } from './schema'
 import { BidWithUser } from '@/types/app'
+import { isAfter, isBefore } from 'date-fns'
 
 const handler = async ({ amount, auctionId, userId }: InputType): Promise<OutputType> => {
 	try {
 		const auction = await db.auction.findFirst({ where: { id: auctionId } })
 		if (!auction) return { error: 'auction not found' }
-		if (auction.endDate < new Date()) return { error: 'Auction has ended' }
+		if (isBefore(Date.now(), auction.startDate)) return { error: 'Auction has not started Yet' }
+		if (isAfter(Date.now(),auction.endDate)) return { error: 'Auction has ended' }
 		if (auction.initialPrice > amount) return { error: 'Bid amount must be greater than the initial price' }
 
 		const maxBid = await db.bid.findFirst({
