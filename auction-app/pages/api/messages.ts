@@ -1,4 +1,3 @@
-import { sendMesssage } from '@/actions/send-message'
 import type { NextApiRequest, NextApiResponse } from 'next'
 import { NextApiResponseServerIo } from '@/types'
 import { auth } from '@/lib/auth'
