@@ -1,5 +1,5 @@
 'use client'
-import { LogOut, PlusCircle, Settings, User } from 'lucide-react'
+import { LogOut, PlusCircle, Settings, UserIcon } from 'lucide-react'
 import { Button } from '../ui/button'
 import {
 	DropdownMenu,
@@ -11,17 +11,23 @@ import {
 } from '../ui/dropdown-menu'
 import Link from 'next/link'
 import { logout } from '@/actions/logout'
+import { User } from 'next-auth'
+import { Avatar, AvatarFallback } from '../ui/avatar'
 
-export function AccountDropdown() {
+export function AccountDropdown({user}: {user: User}) {
 	return (
 		<DropdownMenu>
-			<DropdownMenuTrigger className="p-1 hover:bg-gray-100">
-				<User className="w-7 h-7" />
+			<DropdownMenuTrigger className="p-1 hover:bg-black hover:bg-opacity-10 rounded-full">
+				<Avatar>
+					<AvatarFallback>
+						{user.name?.[0]}
+					</AvatarFallback>
+				</Avatar>
 			</DropdownMenuTrigger>
 			<DropdownMenuContent className="me-4">
-				<DropdownMenuLabel>Hello User !</DropdownMenuLabel>
+				<DropdownMenuLabel>Hello {user.name} !</DropdownMenuLabel>
 				<DropdownMenuSeparator />
-				<DropdownMenuItem >
+				<DropdownMenuItem>
 					<Link href="/auctions/new" className="w-full flex gap-2 pe-12">
 						<PlusCircle className="w-5 h-5" />
 						<span>Create Auction</span>

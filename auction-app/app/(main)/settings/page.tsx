@@ -13,7 +13,7 @@ export const metadata: Metadata = {
 }
 export default async function Profile() {
 	const session = (await auth())!
-	const profile: Profile = (await getProfile(session.user?.email!))!
+	const profile: Profile = (await getProfile(session.user.id))!
 	await new Promise((resolve) => setTimeout(resolve, 1000))
 
 	return (

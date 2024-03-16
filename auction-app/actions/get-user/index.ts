@@ -1,10 +1,10 @@
 import { db } from '@/lib/db'
 
-export async function getProfile(email: string) {
+export async function getProfile(id: string) {
 	try {
 		return await db.user.findUnique({
 			where: {
-				email,
+				id,
 			},
 			select: { email: true, fullName: true, username: true },
 		})
@@ -13,10 +13,10 @@ export async function getProfile(email: string) {
 		return null
 	}
 }
-export const getUser = async (email: string) => {
+export const getUser = async (id: string) => {
 	return await db.user.findUnique({
 		where: {
-			email,
+			id,
 		},
 	})
 }

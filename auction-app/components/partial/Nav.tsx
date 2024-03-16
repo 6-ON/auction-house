@@ -38,7 +38,7 @@ export async function Nav({ session }: { session: Session | null }) {
 						</Link>
 					</>
 				) : (
-					<AccountDropdown />
+					<AccountDropdown user={session.user} />
 				)}
 			</nav>
 		</header>

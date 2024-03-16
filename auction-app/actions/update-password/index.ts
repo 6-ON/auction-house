@@ -13,7 +13,7 @@ const handler = async (data: InputType): Promise<ReturnType> => {
 		const session = await auth()
 		if (!session) throw new Error('no session')
 
-		const user = (await getUser(session.user!.email!))!
+		const user = (await getUser(session.user!.id!))!
 		if (!(await verify(user!.password, data.currentPassword)))
 			return { fieldErrors: { currentPassword: ['Incorrect password'] } }
 		const hashedPw = await hash(data.newPassword)
