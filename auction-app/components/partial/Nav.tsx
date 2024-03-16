@@ -1,7 +1,5 @@
-import React from 'react'
 import { Logo } from '../common/Logo'
 import Link from 'next/link'
-import { auth } from '@/lib/auth'
 import { AccountDropdown } from '../common/user-dropdown'
 import { Session } from 'next-auth'
 export async function Nav({ session }: { session: Session | null }) {
