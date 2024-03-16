@@ -1,6 +1,6 @@
 import React from 'react'
 
-export const Logo = () => (
+export const Logo = (props: React.SVGProps<SVGSVGElement>) => (
 	<svg
 		xmlns="http://www.w3.org/2000/svg"
 		width="24"
@@ -12,6 +12,7 @@ export const Logo = () => (
 		strokeLinecap="round"
 		strokeLinejoin="round"
 		className="h-8 w-8"
+		{...props}
 	>
 		<path d="m14 13-7.5 7.5c-.83.83-2.17.83-3 0 0 0 0 0 0 0a2.12 2.12 0 0 1 0-3L11 10"></path>
 		<path d="m16 16 6-6"></path>

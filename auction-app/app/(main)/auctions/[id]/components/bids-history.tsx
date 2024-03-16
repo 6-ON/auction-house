@@ -4,6 +4,7 @@ import { useBids } from '@/components/providers/bids-provider'
 import { ScrollArea } from '@/components/ui/scroll-area'
 import { BidWithUser } from '@/types/app'
 import { HandCoins } from 'lucide-react'
+import Link from 'next/link'
 
 export const BidsHistory = () => {
 	const { bids } = useBids()
@@ -30,9 +31,14 @@ function BidItem({ bid }: { bid: BidWithUser }) {
 		<div className="flex items-center gap-2">
 			<div className="flex items-center gap-2">
 				<HandCoins className="h-6 w-6 opacity-70 text-green-800" />
-				<p className="text-slate-600 text-sm">{user.fullName} placed a Bid :</p>
+				<p className="text-slate-600 text-sm">
+					<Link href={`/u/${user.id}`} className="hover:underline me-1">
+						{user.fullName}
+					</Link>
+					placed a Bid :
+				</p>
 			</div>
-			<h4 className="font-semibold text-base">${amount}</h4>
+			<h4 className="font-semibold text-base">{amount.toFixed(2)}$</h4>
 		</div>
 	)
 }

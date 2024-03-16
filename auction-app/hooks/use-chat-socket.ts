@@ -1,15 +1,14 @@
 import { getMessages } from '@/actions/get-messages'
 import { useSocket } from '@/components/providers/socket-provider'
-import { useCallback, useEffect, useState } from 'react'
-
-type TMessage = Awaited<ReturnType<typeof getMessages>>
+import { MessageWithUser } from '@/types/app'
+import { useEffect, useState } from 'react'
 
 type UseChatSocketOptions = {
 	auctionId: string
 }
 
 export const useChatSocket = ({ auctionId }: UseChatSocketOptions) => {
-	const [messages, setMessages] = useState<TMessage>([])
+	const [messages, setMessages] = useState<MessageWithUser[]>([])
 	const { socket, isConnected } = useSocket()
 	const chatkey = `chat:${auctionId}`
 

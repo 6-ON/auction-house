@@ -13,7 +13,7 @@ export function ChatMessages({ messages }: Props) {
 		ref.current?.scrollTo({ top: ref.current?.scrollHeight, behavior: 'smooth' })
 	}, [messages])
 	return (
-		<ScrollArea className="border h-[36rem] rounded-lg px-4 scroll-smooth" ref={ref}>
+		<ScrollArea className="border h-[30rem] rounded-lg px-4 scroll-smooth" ref={ref}>
 			<div className="py-2 grid gap-4">
 				{messages.map((message, i) => (
 					<ChatMessage key={message.id} isLastest={messages.length === i + 1} message={message} />

@@ -44,13 +44,13 @@ const ChangeProfileForm: React.FC<FormProps> = ({ profile }) => {
 	}, [profile, reset])
 
 	return (
-		<Card>
-			<CardHeader className="p-4">
-				<CardTitle>Account Information</CardTitle>
-			</CardHeader>
+		<div>
+			<h4 className="text-lg font-semibold mb-4">
+				Account Information
+			</h4>
 			<Form {...form}>
 				<form onSubmit={handleSubmit(onSubmit)}>
-					<CardContent className="space-y-6">
+					<div className="space-y-4">
 						<div className="space-y-2">
 							<FormField
 								render={({ field }) => <TextField label="Full Name" {...field} />}
@@ -69,10 +69,10 @@ const ChangeProfileForm: React.FC<FormProps> = ({ profile }) => {
 							{isSubmitting && <icons.Loader2 className="mr-2 h-4 w-4 animate-spin" />}
 							Save
 						</Button>
-					</CardContent>
+					</div>
 				</form>
 			</Form>
-		</Card>
+		</div>
 	)
 }
 

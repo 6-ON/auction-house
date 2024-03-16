@@ -1,5 +1,4 @@
 import Link from 'next/link'
-import { PaginationEllipsis } from '@/components/ui/pagination'
 import { Footer } from '@/components/partial'
 import FiltersDrawer from './components/filters-drawer'
 import { AuctionCardV2, SearchAuctionsAlt } from '@/components/common'
@@ -11,6 +10,7 @@ import { PaginationArea } from './components/pagination-area'
 export default async function AuctionsPage({ searchParams }: { searchParams: AuctionSearchParams }) {
 	const { auctions, meta } = await getAuctions(searchParams)
 	const categories = await getCategories()
+
 	return (
 		<>
 			<div className="max-w-7xl w-full mx-auto px-4">

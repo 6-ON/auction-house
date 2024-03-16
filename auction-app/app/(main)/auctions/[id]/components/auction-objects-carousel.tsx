@@ -25,18 +25,14 @@ export function AuctionObjectsCarousel({ objects }: Props) {
 	const currentObject = objects[currenti]
 
 	return (
-		<>
-			<div className="grid gap-2 ">
-				<h2 className="font-semibold text-2xl">{currentObject.title}</h2>
-				<p className="text-sm leading-normal text-gray-500">{currentObject.description}</p>
-			</div>
-			<Carousel className="w-full max-w-lg max-md:mx-auto" setApi={setApi}>
+		<div className="bg-slate-100 rounded-lg space-y-4 p-2">
+			<Carousel className="w-full  max-md:mx-auto" setApi={setApi}>
 				<CarouselContent>
 					{objects.map(({ id, image }) => (
 						<CarouselItem key={id}>
 							<Image
 								alt="Abstract Vision"
-								className="aspect-[4/3] object-cover rounded-lg"
+								className="aspect-[4/3] w-full object-cover rounded-lg"
 								priority={true}
 								height={400}
 								src={image}
@@ -52,6 +48,10 @@ export function AuctionObjectsCarousel({ objects }: Props) {
 					</>
 				)}
 			</Carousel>
-		</>
+			<div className="grid gap-2 ">
+				<h2 className="font-semibold text-xl">{currentObject.title}</h2>
+				<p className="text-sm leading-normal text-gray-500">{currentObject.description}</p>
+			</div>
+		</div>
 	)
 }

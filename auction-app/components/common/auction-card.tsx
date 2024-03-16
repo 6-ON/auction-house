@@ -2,8 +2,9 @@ import Image from 'next/image'
 import { icons } from 'lucide-react'
 import Link from 'next/link'
 import { Auction, AuctionObject } from '@prisma/client'
-import { formatDistanceToNow, formatRelative, isAfter, isBefore } from 'date-fns'
+import { formatRelative, isAfter, isBefore } from 'date-fns'
 import { Badge } from '../ui/badge'
+import { cn } from '@/lib/utils'
 
 type Props = {
 	auction: Auction & { objects: AuctionObject[] }
@@ -29,11 +30,16 @@ export const AuctionCardV2 = ({ auction }: Props) => {
 	const { objects, description, id, title, initialPrice, endDate, startDate } = auction
 	const status = getStatus({ endDate, startDate })
 	return (
-		<Link href={`/auctions/${id}`} className="border rounded-lg overflow-hidden bg-gray-50 hover:shadow-lg transition-shadow">
+		<Link
+			href={`/auctions/${id}`}
+			className="border rounded-lg overflow-hidden bg-gray-50 hover:shadow-lg transition-shadow"
+		>
 			<div className="border-b p-4 grid items-start gap-4">
 				<div className="flex justify-between">
 					<h2 className="text-lg truncate max-w-[15rem] font-bold">{auction.title}</h2>
-					<Badge variant={badgeVariants[status]}>{status}</Badge>
+					<Badge variant={badgeVariants[status]} className={cn([status === 'live' && 'animate-pulse'])}>
+						{status}
+					</Badge>
 				</div>
 				<div className="text-xs text-slate-600 flex items-center space-x-2">
 					<icons.Clock className="w-5 h-5 fill-current-foreground-variant" />

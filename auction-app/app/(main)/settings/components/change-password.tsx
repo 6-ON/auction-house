@@ -31,33 +31,37 @@ const ChangePasswordForm = () => {
 		formState: { isSubmitting, isValid },
 	} = form
 	const onSubmit: SubmitHandler<InputType> = async (data) => {
-		const { success, fieldErrors } = await updatePassword(data)
-		if (!success && fieldErrors) {
-			Object.entries(fieldErrors).forEach(([field, errors]) => {
-				setError(field as keyof InputType, { message: errors.join(', ') })
-			})
-		}
-		if (success) {
-			toast({
+		const rlst = await updatePassword(data)
+		if (rlst.success) {
+			return toast({
 				title: 'Password Updated',
 				description: 'Your password has been updated',
 			})
 		}
+		const { fieldErrors } = rlst
+		if (fieldErrors) {
+			Object.entries(fieldErrors).forEach(([field, errors]) => {
+				setError(field as keyof InputType, { message: errors.join(', ') })
+			})
+		}
 	}
 	return (
-		<Card>
-			<CardHeader className="p-4">
-				<CardTitle>Change Password</CardTitle>
-			</CardHeader>
+		<div>
+			<h4 className="text-lg font-semibold mb-4">Change Password</h4>
 			<Form {...form}>
 				<form onSubmit={handleSubmit(onSubmit)}>
-					<CardContent className="p-4 grid gap-4">
+					<div className="grid gap-4">
 						<div className="space-y-2">
 							<FormField
 								name="currentPassword"
 								control={control}
 								render={({ field }) => (
-									<TextField label="Current Password" type="password" {...field} />
+									<TextField
+										label="Current Password"
+										type="password"
+										{...field}
+										placeholder="●●●●●●●●●"
+									/>
 								)}
 							/>
 						</div>
@@ -80,10 +84,10 @@ const ChangePasswordForm = () => {
 						<Button type="submit" disabled={!isValid || isSubmitting}>
 							Update Password
 						</Button>
-					</CardContent>
+					</div>
 				</form>
 			</Form>
-		</Card>
+		</div>
 	)
 }
 
