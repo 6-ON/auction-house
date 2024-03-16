@@ -1,6 +1,6 @@
 'use client'
 import { cn } from '@/lib/utils'
-import { icons as Icons } from 'lucide-react'
+import * as Icons from 'lucide-react'
 import { Button } from '@/components/ui/button'
 import { SubmitHandler, useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
@@ -35,7 +35,7 @@ export function SignInForm({ className, ...props }: SignInFormProps) {
 		<div className={cn('grid gap-6', className)} {...props}>
 			<Form {...form}>
 				<form onSubmit={handleSubmit(onSubmit)}>
-					<div className="grid gap-2">
+					<div className="grid gap-2 w-80">
 						<div className="grid gap-1">
 							<FormField
 								render={({ field }) => (
@@ -62,7 +62,7 @@ export function SignInForm({ className, ...props }: SignInFormProps) {
 					</div>
 				</form>
 			</Form>
-			<div className="relative">
+			{/* <div className="relative">
 				<div className="absolute inset-0 flex items-center">
 					<span className="w-full border-t" />
 				</div>
@@ -74,11 +74,11 @@ export function SignInForm({ className, ...props }: SignInFormProps) {
 				{isSubmitting ? (
 					<Icons.Loader2 className="mr-2 h-4 w-4 animate-spin" />
 				) : (
-					<Icons.Twitter className="mr-2 h-4 w-4" />
+					<Icons.XIcon className="mr-2 h-4 w-4" />
 				)}
 				Twitter
-			</Button>
-			{sp.get('error') === 'CredentialsSignin' && 'credentials error' }
+			</Button> */}
+			<span className="text-destructive">{sp?.get('error') === 'CredentialsSignin' && 'Wrong credentials'}</span>
 		</div>
 	)
 }
