@@ -63,8 +63,10 @@ model Message {
 
 model Report {
   id         String @id @default(auto()) @map("_id") @db.ObjectId
-  reporter   User   @relation(fields: [reporterId], references: [id])
-  reporterId String @map("userId") @db.ObjectId
+  reported   User   @relation("reports",fields: [reportedId], references: [id])
+  reportedId String @map("reportedId") @db.ObjectId
+  reporter   User   @relation("reporting",fields: [reporterId], references: [id])
+  reporterId String @map("reporterId") @db.ObjectId
   reason     String
 }
 
@@ -83,6 +85,7 @@ model User {
   password String
   auctions Auction[]
   bids     Bid[]
-  reports  Report[]
   messages Message[]
+  reportings Report[] @relation("reporting")
+  reports Report[] @relation("reports")
 }
