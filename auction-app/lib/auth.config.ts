@@ -1,26 +1,25 @@
 import { NextAuthConfig } from 'next-auth'
-import { authRoutes, publicRoutes } from './routes'
 
 export const authConfig = {
 	providers: [],
 	callbacks: {
 		authorized({ auth, request: { nextUrl } }) {
+			console.log(nextUrl.pathname)
 
+			const isPublicRoute = /(^\/$|^\/auctions$)/.test(nextUrl.pathname)
+			const isAuthRoute = /(^\/sign-(in|up)$)/.test(nextUrl.pathname)
 			const isLoggedIn = !!auth?.user
-			const isPublicRoute = publicRoutes.includes(nextUrl.pathname)
-			const isAuthRoute = authRoutes.includes(nextUrl.pathname)
-			
+			// return isLoggedIn
+
 			// check if the route is public
 			if (isPublicRoute) return true
 
-			// check if the route is public
+			// check if user is logged in
 			if (!isLoggedIn) {
-				// authrize auth routes
+				// authorize auth routes
 				if (isAuthRoute) return true
 				return false
 			} else if (isAuthRoute) return Response.redirect(new URL('/', nextUrl))
-
-			return true
 		},
 	},
 	pages: {
