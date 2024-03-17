@@ -1,17 +1,15 @@
 import { db } from '@/lib/db'
+import { notFound } from 'next/navigation'
 
 export async function getProfile(id: string) {
-	try {
-		return await db.user.findUnique({
-			where: {
-				id,
-			},
-			select: { email: true, fullName: true, username: true },
-		})
-	} catch (error) {
-		console.error(error)
-		return null
-	}
+	const profile = await db.user.findUnique({
+		where: {
+			id,
+		},
+		select: { email: true, fullName: true, username: true, id: true },
+	})
+	if (!profile) notFound()
+	return profile
 }
 export const getUser = async (id: string) => {
 	return await db.user.findUnique({
