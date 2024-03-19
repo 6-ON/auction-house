@@ -32,7 +32,7 @@ export const AuctionCardV2 = ({ auction }: Props) => {
 	return (
 		<Link
 			href={`/auctions/${id}`}
-			className="border rounded-lg overflow-hidden bg-gray-50 hover:shadow-lg transition-shadow"
+			className="border rounded-lg overflow-hidden bg-primary-50 hover:shadow-lg transition-shadow "
 		>
 			<div className="border-b p-4 grid items-start gap-4">
 				<div className="flex justify-between">

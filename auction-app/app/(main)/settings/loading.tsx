@@ -3,7 +3,7 @@ import { Skeleton } from '@/components/ui/skeleton'
 
 function Loading() {
 	return (
-		<div className="max-w-3xl w-full m-auto p-6 bg-white rounded-lg border ">
+		<div className="max-w-3xl w-full m-auto p-6 bg-primary-foreground rounded-lg border ">
 			<h1 className="text-2xl font-bold mb-1.5">Profile Settings</h1>
 			<p className="text-sm mb-6">Manage your account settings and preferences.</p>
 			<div className="mb-8">

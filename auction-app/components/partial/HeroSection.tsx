@@ -2,7 +2,7 @@ import Image from 'next/image'
 import { SearchAuctions } from '../common/search-auctions'
 
 export const HeroSection: React.FC = () => (
-	<section className="relative flex flex-col justify-center w-full  h-screen -translate-y-14">
+	<section className="relative flex flex-col justify-center w-full  h-[101vh] -translate-y-[4.3rem]">
 		<Image
 			src="/bronze-figures-hero.jpg"
 			className="absolute h-full w-full object-cover "

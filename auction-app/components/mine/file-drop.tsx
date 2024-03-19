@@ -41,7 +41,7 @@ const ImageFileDrop: React.FC<ImageFileDrop> = ({ field, fieldState, formState }
 	const uploadFile = async (file: File) => {
 		const formData = new FormData()
 		formData.append('file', file)
-		const res = await fetch('http://localhost:5000/upload', {
+		const res = await fetch(`${process.env.CDN_URL}/upload`, {
 			method: 'POST',
 			body: formData,
 		})

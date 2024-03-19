@@ -54,7 +54,7 @@ export const CreateAuctionStepTwo: StepComponent = ({ stepper }) => {
 				<div className="grid grid-cols-1 md:grid-cols-2 gap-y-6 gap-x-3 items-center ">
 					<button
 						type="button"
-						className="w-full hover:bg-slate-100 max-w-sm mx-auto h-[34.5rem] rounded-sm border-dashed  border-2 flex items-center justify-center space-x-2"
+						className="w-full hover:bg-muted max-w-sm mx-auto h-[34.5rem] rounded-sm border-dashed  border-2 flex items-center justify-center space-x-2"
 						onClick={() => {
 							prepend({
 								title: '',

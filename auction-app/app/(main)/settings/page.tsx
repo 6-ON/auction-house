@@ -13,10 +13,10 @@ export const metadata: Metadata = {
 }
 export default async function Profile() {
 	const session = (await auth())!
-	const profile: Profile = (await getProfile(session.user.id))!
+	const profile: Profile = (await getProfile(session.user.id!))!
 
 	return (
-		<div className="w-full max-w-4xl m-auto flex justify-center min-h-full ">
+		<div className="w-full max-w-4xl m-auto flex justify-center  ">
 			<Card className="w-full max-w-3xl">
 				<CardHeader>
 					<CardTitle>Profile Settings</CardTitle>
