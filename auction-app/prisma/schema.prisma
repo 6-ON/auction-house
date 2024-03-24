@@ -83,6 +83,8 @@ model User {
   username String
   fullName String
   password String
+  isAdmin Boolean   @default(false)
+  isBanned Boolean @default(false)
   auctions Auction[]
   bids     Bid[]
   messages Message[]
