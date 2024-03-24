@@ -10,10 +10,12 @@ import { Button } from '@/components/ui/button'
 import { HandshakeIcon, History, Hourglass, MessageCircleMoreIcon } from 'lucide-react'
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs'
 import { ChatProvider } from '@/components/providers/chat-provider'
+import { auth } from '@/lib/auth'
 
 async function AuctionPage({ params }: { params: { id: string } }) {
 	const auction = await getAuction(params.id)
 	const { title, description, objects, startDate, endDate } = auction
+	const currentSession = await auth()
 	return (
 		<SocketProvider>
 			<div className="grid md:grid-cols-2 items-start max-w-7xl px-4 mx-auto gap-6 lg:gap-12 my-10">
@@ -26,7 +28,9 @@ async function AuctionPage({ params }: { params: { id: string } }) {
 									Bidding ends {formatDistanceToNow(endDate)}
 								</p>
 							</div>
-							{isBefore(Date.now(), endDate) ? (
+							{currentSession?.user.isBanned ? (
+								<></>
+							) : isBefore(Date.now(), endDate) ? (
 								isAfter(Date.now(), startDate) ? (
 									<PlaceBidButton />
 								) : (
@@ -43,9 +47,9 @@ async function AuctionPage({ params }: { params: { id: string } }) {
 							)}
 						</div>
 						<div className="grid gap-4">
-							<div className="grid gap-2 bg-slate-100 p-4 rounded-lg shadow-sm">
+							<div className="grid gap-2 bg-secondary p-4 rounded-lg shadow-sm">
 								<h3 className="font-semibold text-xl">Description</h3>
-								<p className="text-sm leading-normal ms-3">{description}</p>
+								<p className="text-sm leading-normal text-muted-foreground">{description}</p>
 							</div>
 							<AuctionObjectsCarousel objects={objects} />
 						</div>
@@ -67,7 +71,7 @@ async function AuctionPage({ params }: { params: { id: string } }) {
 									<BidsHistory />
 								</TabsContent>
 								<TabsContent value="messages">
-									<ChatSection  />
+									<ChatSection userBanned={currentSession?.user.isBanned!} />
 								</TabsContent>
 							</Tabs>
 						</div>

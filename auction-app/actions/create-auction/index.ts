@@ -10,7 +10,7 @@ const handler = async (data: InputType): Promise<ReturnType> => {
 	const { startDate, endDate, categoryId, description, initialPrice, objects, tags, title } = data
 	const session = await auth()
 	if (!session) throw new Error('no session')
-    
+    if(session.user.isBanned) throw new Error('user is banned')
 	const userId = session.user?.id!
 	const created = await db.auction.create({
 		data: {

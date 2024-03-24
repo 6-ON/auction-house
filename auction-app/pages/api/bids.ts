@@ -11,6 +11,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponseS
 	try {
 		const session = await auth(req, res)
 		if (!session) return res.status(401).json({ error: 'Unauthorized' })
+		if (session.user.isBanned) return res.status(403).json({ error: 'Forbidden' })
 		const inputData: InputType = { ...req.body, userId: session.user.id }
 		const rslt = await createBid(inputData)
 

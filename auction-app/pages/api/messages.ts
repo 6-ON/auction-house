@@ -11,6 +11,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponseS
 	try {
 		const session = await auth(req, res)
 		if (!session) return res.status(401).json({ error: 'Unauthorized' })
+		if (session.user.isBanned) return res.status(403).json({ error: 'Forbidden' })
 		const { auctionId, content } = messageSchema.parse(req.body)
 
 		const chatKey = `chat:${auctionId}`
@@ -18,7 +19,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponseS
 			data: {
 				content,
 				auctionId,
-				senderId: session.user.id,
+				senderId: session.user.id!,
 			},
 			select: { sender: { select: { id: true, fullName: true } }, content: true, createdAt: true, id: true },
 		})
