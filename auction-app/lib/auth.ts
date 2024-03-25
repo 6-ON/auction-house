@@ -3,6 +3,7 @@ import { authConfig } from './auth.config'
 import CredentialsProvider from 'next-auth/providers/credentials'
 import { loginUser } from '@/actions/login-user'
 import { db } from './db'
+import { getUser } from '@/actions/get-user'
 export const {
 	auth,
 	signIn,
@@ -13,17 +14,12 @@ export const {
 	callbacks: {
 		session: async ({ session, token }) => {
 			if (session?.user) {
-				session.user.id = token.sub!
-				session.user.name= (await db.user.findUnique({where: {id: token.sub!}}))?.fullName
-				
+				const user = await getUser(token.sub!)
+				if (!user) return session
+				const { password, fullName, ...rest } = user
+				session.user = { ...session.user, ...rest, name: fullName }
 			}
 			return session
-		},
-		jwt: async ({ user, token }) => {
-			if (user) {
-				token.sub = user.id
-			}
-			return token
 		},
 	},
 	session: {
@@ -38,7 +34,7 @@ export const {
 			async authorize({ email, password }: any, req) {
 				console.log('----------------------loggin in ---------------------------')
 				const rlst = await loginUser({ email, password })
-				if(!rlst.success) return null
+				if (!rlst.success) return null
 				console.log('-----------------------logged in---------------------------')
 				return rlst.data!
 			},
