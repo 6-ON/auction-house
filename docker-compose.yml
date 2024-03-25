@@ -1,0 +1,28 @@
+version: '4'
+services:
+  auction-app:
+    image: auction-app-nextjs
+    build: auction-app
+    ports:
+      - "3000:3000"
+    depends_on:
+      - mongodb
+      - cdn
+  # It's a Replica Set (required for Prisma Client)
+  mongodb:
+    build: ./mongo-rs
+    container_name: mongodb
+    environment:
+      MONGO_REPLICA_HOST: mongodb
+      MONGO_REPLICA_PORT: "27020"
+      # # Use "mongo" instead of "mongosh" before v5.0
+      MONGO_COMMAND: 'mongosh'
+    # command: "/usr/bin/mongod --port 27020 --bind_ip_all --replSet rs0"
+    ports:
+      - '27020:27020'
+  cdn:
+    container_name: cdn_server
+    image: flask_cdn
+    build: cdn
+    ports:
+      - "5000:5000"
