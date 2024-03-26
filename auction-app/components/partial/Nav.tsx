@@ -25,6 +25,7 @@ export async function Nav({ session }: { session: Session | null }) {
 						<Link
 							className="text-sm font-medium hover:underline underline-offset-4"
 							href="/sign-in"
+							data-cy="login-link"
 							rel="ugc"
 						>
 							Login

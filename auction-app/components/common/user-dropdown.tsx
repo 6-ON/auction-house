@@ -9,14 +9,21 @@ import {
 	DropdownMenuTrigger,
 } from '../ui/dropdown-menu'
 import Link from 'next/link'
-import { logout } from '@/actions/logout'
 import { User } from 'next-auth'
 import { Avatar, AvatarFallback } from '../ui/avatar'
+import { signOut } from 'next-auth/react'
+import { useRouter } from 'next/navigation'
 
 export function AccountDropdown({ user }: { user: User }) {
+	const router = useRouter()
+	const handleLogout = async () => {
+		const res = await signOut({ redirect: false, callbackUrl: '/' })
+		router.push(res.url)
+		router.refresh()
+	}
 	return (
 		<DropdownMenu>
-			<DropdownMenuTrigger className="p-1 hover:bg-muted hover:bg-opacity-10 rounded-full">
+			<DropdownMenuTrigger className="p-1 hover:bg-muted hover:bg-opacity-10 rounded-full" data-cy="usr-dropdown">
 				<Avatar>
 					<AvatarFallback>{user.name?.[0]}</AvatarFallback>
 				</Avatar>
@@ -47,7 +54,7 @@ export function AccountDropdown({ user }: { user: User }) {
 					</DropdownMenuItem>
 				)}
 				<DropdownMenuSeparator />
-				<DropdownMenuItem onClick={async () => await logout()} className="cursor-pointer flex gap-2">
+				<DropdownMenuItem onClick={handleLogout} className="cursor-pointer flex gap-2" data-cy="usr-logout-btn">
 					<LogOut className="w-5 h-5" />
 					<span>Log out</span>
 				</DropdownMenuItem>
