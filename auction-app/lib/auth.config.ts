@@ -11,7 +11,8 @@ export const authConfig = {
 			if (isPublicRoute) return true
 			// if the user is logged in and the route is auth, redirect to the home page
 			if (isLoggedIn) {
-				if (isAuthRoute) return Response.redirect(new URL('/', nextUrl))
+				const callbackUrl = nextUrl.searchParams.get('callbackUrl')
+				if (isAuthRoute) return Response.redirect(new URL(callbackUrl ?? '/', nextUrl))
 				return true
 			}
 			return isAuthRoute
