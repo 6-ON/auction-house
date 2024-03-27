@@ -41,6 +41,7 @@ const handler = async (sp?: AuctionSearchParams) => {
 			include: { objects: true },
 			skip: (currentPage - 1) * pageSize,
 			take: pageSize,
+			orderBy:{startDate: 'asc'}
 		}),
 	])
 	const totalPages = Math.ceil(totalItems / pageSize)
