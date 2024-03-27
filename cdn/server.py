@@ -8,7 +8,7 @@ app = Flask(__name__)
 CORS(app)  # Enable CORS for all routes
 
 UPLOAD_FOLDER = 'uploads'
-ALLOWED_EXTENSIONS = {'png', 'jpg', 'jpeg', 'gif'}
+ALLOWED_EXTENSIONS = {'png', 'jpg', 'jpeg', 'webp'}
 
 app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
 
@@ -37,4 +37,4 @@ def uploaded_file(filename):
     return send_from_directory(app.config['UPLOAD_FOLDER'], filename)
 
 if __name__ == '__main__':
-    app.run(debug=True)
+    app.run(debug=True, host='0.0.0.0')
