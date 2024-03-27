@@ -51,12 +51,5 @@ Auction-House is a free platform where users can freely buy and sell a diverse r
 
 run `npm test` to run tests
 
-## Diagrams
-
-### Class Diagram
-
-![Class Diagram](./diagrams/class_diagram.svg)
-
-### Use Case Diagram
-
+## Use Cases
 ![Use Case Diagram](./diagrams/usecase_diagram.svg)
