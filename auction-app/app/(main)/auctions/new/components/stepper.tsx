@@ -9,12 +9,12 @@ import { CreateAuctionStepTwo } from './create-auction-step-2'
 const steps: StepOptions[] = [
 	{
 		title: 'Auction Details',
-		desctiption: 'test',
+		desctiption: 'fill in the details of the auction',
 		Component: CreateAuctionStepOne,
 	},
 	{
 		title: 'Add Objects',
-		desctiption: 'test',
+		desctiption: 'add objects to the auction',
 		Component: CreateAuctionStepTwo,
 	},
 ]
