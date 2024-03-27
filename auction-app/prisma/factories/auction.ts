@@ -1,11 +1,13 @@
-import { Auction, AuctionObject, Category } from '@prisma/client'
+import { Auction, AuctionObject } from '@prisma/client'
 import { faker } from '@faker-js/faker'
 
 import { db } from '../../lib/db'
+import { getRandomUser } from './user'
+import { getRandomCategory } from './category'
+import { array } from 'zod'
 
 export async function auctionFactory(c: number = 1) {
-	const categories = await db.category.findMany()
-	const users = await db.user.findMany()
+
 	const auctions = await Promise.all(
 		Array(c)
 			.fill(0)
@@ -14,13 +16,13 @@ export async function auctionFactory(c: number = 1) {
 					await db.auction.create({
 						data: {
 							title: faker.commerce.productName(),
-							tags: [faker.commerce.productAdjective()],
+							tags: Array(Math.round((Math.random() + 1) * 3)).fill(0).map(() => faker.commerce.productMaterial()),
 							description: faker.commerce.productDescription(),
 							initialPrice: +faker.commerce.price(),
 							endDate: faker.date.future(),
 							startDate: faker.date.future(),
-							userId: users[Math.round(Math.random() * users.length)].id,
-							categoryId: categories[Math.round(Math.random() * categories.length)].id,
+							userId : (await getRandomUser())!._id.$oid ,
+							categoryId: (await getRandomCategory())!._id.$oid,
 							objects: {
 								create: await Promise.all(
 									Array(Math.round((Math.random() + 1) * 3))
@@ -35,6 +37,7 @@ export async function auctionFactory(c: number = 1) {
 	)
 	return auctions
 }
+
 
 async function objectDefaults(): Promise<Omit<AuctionObject, 'id' | 'auctionId'>> {
 	return {

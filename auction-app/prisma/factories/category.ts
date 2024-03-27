@@ -17,3 +17,9 @@ async function categoryDefaults(): Promise<Omit<Category, 'id'>> {
 		name: faker.commerce.department(),
 	}
 }
+
+export async function getRandomCategory() {
+	return (await db.category.aggregateRaw({
+		pipeline: [{ $sample: { size: 1 } }],
+	}))?.[0] as any | undefined
+}
